@@ -15,7 +15,7 @@ if __name__ == '__main__':
     K = np.load('./parameters/K.npy')
     D = np.load('./parameters/D.npy')
 
-    img = cv2.imread('distort.jpg')
+    img = cv2.imread('distorted.jpg')
     img = correct(img, k=K, d=D, dims=Dims)
     cv2.imshow('', img)
     cv2.imwrite('undistorted.jpg', img)
