@@ -15,15 +15,17 @@ if __name__ == '__main__':
     K = np.load('./parameters/K.npy')
     D = np.load('./parameters/D.npy')
 
-    cap = cv2.VideoCapture(0)
-    cap.set(3, 1280)
-    cap.set(4, 720)
+    cap = cv2.VideoCapture(2)
+    cap.set(3, 640)
+    cap.set(4, 480)
     correct_flag = True
     while cap.isOpened():
         _, frame = cap.read()
         if correct_flag:
-            frame = correct(frame, k=K, d=D, dims=Dims)
-        cv2.imshow('', frame)
+            frame_undist = correct(frame, k=K, d=D, dims=Dims)
+        cv2.imshow('Undistorted', frame_undist)
+        cv2.imshow('Distorted', frame)
+
         num_key = cv2.waitKey(1)
         if num_key == 13:
             correct_flag = not correct_flag

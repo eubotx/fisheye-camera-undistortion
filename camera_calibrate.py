@@ -31,7 +31,7 @@ def calibrate(chessboard_path, show_chessboard=False):
             print('Image ' + image + ' is valid for calibration')
             if show_chessboard:
                 cv2.drawChessboardCorners(img, CHESSBOARD_SIZE, corners, ret)
-                cv2.imwrite(os.path.join('./Chessboards_Corners', image), img)
+                cv2.imwrite(os.path.join('./calibration_images_corners', image), img)
 
     k = np.zeros((3, 3))
     d = np.zeros((4, 1))
@@ -55,8 +55,8 @@ def calibrate(chessboard_path, show_chessboard=False):
 if __name__ == '__main__':
     if not os.path.exists('./parameters'):
         os.makedirs('./parameters')
-    if not os.path.exists('./Chessboards_Corners'):
-        os.makedirs('./Chessboards_Corners')
+    if not os.path.exists('./calibration_images_corners'):
+        os.makedirs('./calibration_images_corners')
 
     K, D, Dims = calibrate('./Chessboards', show_chessboard=True)
     np.save('./parameters/Dims', np.array(Dims))
