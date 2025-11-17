@@ -61,6 +61,10 @@ def calibrate(chessboard_path, show_chessboard=False):
 
 
 def write_yaml(K, D, dims, out_path="calibration_output.yaml"):
+    # Configure YAML to use block style for dictionaries and flow style for lists
+    yaml.add_representer(dict, lambda dumper, data: dumper.represent_mapping('tag:yaml.org,2002:map', data, flow_style=False))
+    yaml.add_representer(list, lambda dumper, data: dumper.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True))
+
     calibration = {
         'image_width': int(dims[0]),
         'image_height': int(dims[1]),
@@ -96,7 +100,17 @@ def write_yaml(K, D, dims, out_path="calibration_output.yaml"):
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, 'w') as f:
-        yaml.dump(calibration, f, default_flow_style=True, sort_keys=False)
+        # Write basic fields first
+        f.write(f"image_width: {calibration['image_width']}\n")
+        f.write(f"image_height: {calibration['image_height']}\n")
+        f.write("\n")
+        f.write(f"camera_name: {calibration['camera_name']}\n")
+        f.write("\n")
+        
+        # Remove the already written fields and dump the rest
+        remaining_data = {k: v for k, v in calibration.items() 
+                         if k not in ['image_width', 'image_height', 'camera_name']}
+        yaml.dump(remaining_data, f, default_flow_style=None, sort_keys=False)
 
     print(f"Calibration saved to {out_path}")
 

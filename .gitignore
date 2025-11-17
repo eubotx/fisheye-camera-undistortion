@@ -1,5 +1,8 @@
 # Ignore all .img files
-*.img
+*.jpg
+
+# Ignore all .yaml configurations
+*.yaml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
