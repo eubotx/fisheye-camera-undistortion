@@ -1,0 +1,23 @@
+# Ignore all .img files
+*.img
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+
+# Editor/project files
+/.idea/          # PyCharm
+.vscode/         # VS Code
+*.log
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+profile_default/
